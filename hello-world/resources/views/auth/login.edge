@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+</head>
+<body>
+
+
+      <header class="global">
+        
+      <h1 class="title"> Hi there! </h1>
+      <p class="subtitle">
+        Wanna Log In?
+
+      </p>
+      
+    </header>
+
+    <main>
+      <div>
+      <section>
+        <form action = "/login" method="post">
+  
+          <div>
+            <label for="email">
+            </label>
+            <input value="user@mail.com" type="email" name="email" id="email"/>
+            @if(flashMessages.has('errors.email'))
+              <small> {{flashMessages.get("errors.email")}} </small>
+            @endif
+          </div>
+  
+          <div>
+            <label for="password">
+            </label>
+            <input value="*****" type="password" name="password" id="password"/>
+            @if(flashMessages.has('errors.password'))
+              <small> {{flashMessages.get("errors.password")}} </small>
+            @endif
+          </div>
+  
+          <div>
+            <button type="submit" value="Login"> Login </button>
+            {{--  <input type="submit" value="Login"/>  --}}
+          </div>
+          <br>
+        
+        </form>
+
+      </section>
+    </div>
+    <form action="/signup" method="post">
+      <button > <a href="/signup"> No, I want to sign up </a></button>
+    </form>
+    <br>
+  </main>
+  
+</body>
+</html>

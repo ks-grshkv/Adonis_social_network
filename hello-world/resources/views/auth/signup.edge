@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+</head>
+<body>
+
+
+      <header class="global">
+      <h1 class="title"> Nice to meet ya! </h1>
+      <p class="subtitle">
+        Signup to share your news with the world.
+      </p>
+    </header>
+    
+    <main>
+      <div>
+    <section>
+      <form action = "/signup" method="post">
+        <div>
+          <label for="name">
+          </label>
+          <input value="Your Name" type="text" name="name" id="name"/>
+
+          @if(flashMessages.has('errors.name'))
+            <small> {{flashMessages.get("errors.name")}} </small>
+          @endif
+        </div>
+
+        <div>
+          <label for="email">
+          </label>
+          <input value="user@mail.com" type="email" name="email" id="email"/>
+          @if(flashMessages.has('errors.email'))
+          <small> {{flashMessages.get("errors.email")}} </small>
+        @endif
+        </div>
+
+        <div>
+          <label for="password">
+          </label>
+          <input value="*****" type="password" name="password" id="password"/>
+          @if(flashMessages.has('errors.password'))
+          <small> {{flashMessages.get("errors.password")}} </small>
+        @endif
+        </div>
+
+        <div>
+          <label for="password_confirmation">
+          </label>
+          <input value="*****" type="password_confirmation" name="password_confirmation" id="password_confirmation"/>
+        </div>
+
+        <div>
+          <div>
+            <button type="submit" value="Signup"> Signup </button>
+            {{--  <input type="submit" value="Login"/>  --}}
+          </div>
+
+          <br>
+          <form action="/login" method="post">
+            <button > <a href="/login"> No, I want to log in </a></button>
+          </form>
+        </div>
+      
+      </form>
+    </section>
+    </div>
+  </main>
+
+
+
+</body>
+</html>
