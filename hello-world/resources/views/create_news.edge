@@ -1,52 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>What's new?</title>
-  @entryPointStyles('app')
-  @entryPointScripts('app')
-</head>
-<body>
-
-
-      <header class="global">
+@layout('layouts/app')
+@section('content')
+<div class="container">
+   <br>
+   <header class="global">
       <h1 class="title"> What's new, {{auth.user.name}}? </h1>
       <p class="subtitle">
-        Tell us your latest news
+         Tell us your latest news
       </p>
-    </header>
-
-    <main>
+   </header>
+   <main>
       <div>
-      <section>
-        <form action = "/post" method="post">
-          <div>
-            <label for="title">
-            </label>
-            <input type="text" name="title" id="title"/>
-            @if(flashMessages.has('errors.title'))
-              <small> {{flashMessages.get("errors.title")}} </small>
-            @endif
-          </div>
-  
-          <div>
-            <label for="body">
-            </label>
-            <input type="text" name="body" id="body"/>
-            @if(flashMessages.has('errors.body'))
-              <small> {{flashMessages.get("errors.body")}} </small>
-            @endif
-          </div>
-  
-          <div>
-            <div>
-              <button type="submit" value="Post"> Post </button>
-            </div>
-          </div>
-        </form>
-      </section>
-
-    </div>
-  </main>
-</body>
-</html>
+         <section>
+            <form action = "{{route('NewsController.make_news')}}" method="post">
+               {{ csrfField() }}
+               <div>
+                  <label for="title">
+                  </label>
+                  <input type="text" name="title" id="title"/>
+                  @if(flashMessages.has('errors.title'))
+                  <small> {{flashMessages.get("errors.title")}} </small>
+                  @endif
+               </div>
+               <div>
+                  <label for="body">
+                  </label>
+                  <input type="text" name="body" id="body"/>
+                  @if(flashMessages.has('errors.body'))
+                  <small> {{flashMessages.get("errors.body")}} </small>
+                  @endif
+               </div>
+               <div>
+                  <button class="btn btn-primary" type="submit" value="Post"> Post </button>
+               </div>
+            </form>
+         </section>
+      </div>
+   </main>
+</div>
+@endsection

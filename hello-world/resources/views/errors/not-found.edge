@@ -1,1 +1,7 @@
-<p> It's a 404 </p>
+@layout('layouts/app')
+@section('content')
+<div class="container">
+<h1> Oops </h1>
+<p> Hey, did you get lost? You can always go back to the <a href="{{route('NewsController.index')}}">main page</a> </p>
+</div>
+@endsection

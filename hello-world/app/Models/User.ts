@@ -1,8 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeSave, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
+import News from 'App/Models/News'
 
 export default class User extends BaseModel {
+  @hasMany(() => News, {
+    foreignKey: 'author_id',
+  })
+  public posts: HasMany<typeof News>
+
   @column({ isPrimary: true })
   public id: number
 

@@ -1,0 +1,24 @@
+@layout('layouts/app')
+@section('content')
+<div class="container">
+   <br>
+   <h1 class="title"> {{author}}'s profile  </h1>
+   <main>
+      <div>
+         <br> 
+         <h2>Here's {{author}}'s latest news</h2>
+         <br>
+         @each(post in news)
+         <div>
+            <p>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.body }}</p>
+            <small>{{ post.author }} - {{ post.createdAt }}</small>
+            </p>
+            <hr>
+         </div>
+         @endeach
+      </div>
+   </main>
+</div>
+@endsection

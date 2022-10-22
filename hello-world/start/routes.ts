@@ -23,7 +23,6 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.any('/', 'NewsController.index'
 )
 
-Route.on('/index').render('index')
 Route.on('/post').render('create_news')
 Route.post('/post', 'NewsController.make_news')
 
@@ -33,3 +32,6 @@ Route.on('/login').render('auth/login')
 Route.post('/signup', 'AuthController.signup')
 Route.post('/login', 'AuthController.login')
 Route.post('/logout', 'AuthController.logout')
+
+// Route.on('/:author_id').render('profile')
+Route.get('/:author_id', 'NewsController.profile')

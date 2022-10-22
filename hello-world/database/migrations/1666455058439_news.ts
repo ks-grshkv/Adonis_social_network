@@ -10,8 +10,16 @@ export default class extends BaseSchema {
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
+      table.string('title').notNullable()
+      table.string('body').notNullable()
+      table.string('author').notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
+      table
+      .integer('author_id')
+      .unsigned()
+      .references('users.id')
+      .onDelete('CASCADE') // delete post when user is deleted
     })
   }
 

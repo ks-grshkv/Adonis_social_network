@@ -1,68 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hey, what's up?</title>
-  @entryPointStyles('app')
-  @entryPointScripts('app')
-</head>
-<body>
-
-  <header class="global">
-    @if(auth.isAuthenticated)
-    <h1 class="title"> Hey, what's up, {{auth.user.name}}?  </h1>
-    <p class="subtitle">
+@layout('layouts/app')
+@section('content')
+<div class="container">
+   <br>
+   @if(auth.isAuthenticated)
+   {{--  
+   <h1 class="title"> Hey, what's up, <a href="/1">{{auth.user.name}}</a>?  </h1>
+   --}}
+   <h1 class="title"> Hey, what's up, <a href="/{{auth.user.id}}">{{auth.user.name}}</a>?  </h1>
+   <p class="subtitle">
       Share your news with us!
-    </p>
-  @else
-    <h1 class="title"> Hey, what's up?  </h1>
-    <p class="subtitle">
+   </p>
+   @else
+   <h1 class="title"> Hey, what's up?  </h1>
+   <p class="subtitle">
       Log in to share your news with us!
-    </p>
-  @endif
-  </header>
-
-  <main>
-      <div class="action-buttons">
-      @if(auth.isAuthenticated == false)
-      <p>
-      <button>
-        <a href="/login"> Login </a>
-      </button>
-      </p>
-      @else
-        <p>
-        <button> 
-          <a href="/post"> Post Something </a>
-        </button>
-        </p>
-      @endif
-
-      @if(auth.isAuthenticated)
-      <form action="/logout" method="post">
-        <button type="submit"> Sign Out </button>
-      </form>
-      @endif
+   </p>
+   @endif
+   <main>
+   <div>
+      <br> 
+      <h2>Here's our latest news</h2>
+      <br>
+      @each(new_post in news)
+      <div class="card col-9">
+         <h3 class="card-header">{{ new_post.title }}</h3>
+         <div class="card-body">
+            <p>{{ new_post.body }}</p>
+            <a href="/{{new_post.author_id}}">{{ new_post.author }}</a> <small>- {{ new_post.createdAt }}</small>
+         </div>
       </div>
-
-      <div>
-        <br> <h2>Here's our latest news</h2> <br>
-        @each(new_post in news)
-            <div>
-            <p>
-              <h3>{{ new_post.title }}</h3>
-              <p>{{ new_post.body }}</p>
-              <small>{{ new_post.author }} - {{ new_post.createdAt }}</small>
-            
-            </p>
-            <hr>
-
-            </div>
-        @endeach
-      <div>
-
-
-  </main>
-
-</body>
-</html>
+      <br>
+      @endeach
+   </div>
+</div>
+@endsection
