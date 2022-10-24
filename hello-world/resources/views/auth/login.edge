@@ -10,26 +10,32 @@
          <main>
             <form action = "{{route('AuthController.login')}}" method="post">
                {{ csrfField() }}
-               <div>
+                <div class="mb-3">
                   <label for="email">
                   </label>
-                  <input placeholder="user@mail.com" type="email" name="email" id="email"/>
+                  <input type="text" value="{{ flashMessages.get('email', '') }}" placeholder="email" name="email" id="email" />
                   @if(flashMessages.has('errors.email'))
-                  <small> {{ flashMessages.get("errors.email") }} </small>
+                  <small> {{flashMessages.get("errors.email")}} </small>
                   @endif
                </div>
-               <div>
-                  <label for="password">
-                  </label>
-                  <input class="w-full bg-gray-200 text-xs rounded-sm" placeholder="*****" type="password" name="password" id="password"/>
-                  @if(flashMessages.has('errors.password'))
-                  <small> {{ flashMessages.get("errors.password" )}} </small>
+
+               <div class="mb-3">
+                @!component('components/field', {field: 'password'})
+                @if(flashMessages.has('errors.password'))
+                  <small> {{flashMessages.get("errors.password")}} </small>
                   @endif
-               </div>
-               <div>
+              </div>
+              @if (flashMessages.has('errors.password') && flashMessages.has('errors.email'))
+              <div>
+                <button class="btn btn-outline-danger" type="submit" value="Login"> Login </button>
+                {{--  <input type="submit" value="Login"/>  --}}
+             </div>
+              @else  
+              <div>
                   <button class="btn btn-primary" type="submit" value="Login"> Login </button>
                   {{--  <input type="submit" value="Login"/>  --}}
                </div>
+               @endif
                <br> 
                <a href="{{route('AuthController.signup')}}"> No, I want to sign up </a>
             </form>

@@ -15,35 +15,33 @@
                <section>
                   <form action = "{{route('AuthController.signup')}}" method="post">
                      {{ csrfField() }}
-                     <div>
-                        <label for="name">
-                        </label>
-                        <input placeholder="Your Name" type="text" name="name" id="name"/>
-                        @if(flashMessages.has('errors.name'))
-                        <small> {{flashMessages.get("errors.name")}} </small>
-                        @endif
-                     </div>
-                     <div>
-                        <label for="email">
-                        </label>
-                        <input placeholder="user@mail.com" type="email" name="email" id="email"/>
-                        @if(flashMessages.has('errors.email'))
-                        <small> {{flashMessages.get("errors.email")}} </small>
-                        @endif
-                     </div>
-                     <div>
-                        <label for="password">
-                        </label>
-                        <input placeholder="*****" type="password" name="password" id="password"/>
-                        @if(flashMessages.has('errors.password'))
-                        <small> {{flashMessages.get("errors.password")}} </small>
-                        @endif
-                     </div>
-                     <div>
-                        <label for="password_confirmation">
-                        </label>
-                        <input placeholder="*****" type="password_confirmation" name="password_confirmation" id="password_confirmation"/>
-                     </div>
+                      <div class="mb-3">
+                      @!component('components/field', {field: 'name'})
+                      @if(flashMessages.has('errors.password'))
+                      <small> {{flashMessages.get("errors.password")}} </small>
+                      @endif
+                      </div>
+                      
+                      <div class="mb-3">
+                      @!component('components/field', {field: 'email'})
+                      @if(flashMessages.has('errors.password'))
+                      <small> {{flashMessages.get("errors.password")}} </small>
+                      @endif
+                      </div>
+
+                      <div class="mb-3">
+                      @!component('components/field', {field: 'password'})
+                      @if(flashMessages.has('errors.password'))
+                      <small> {{flashMessages.get("errors.password")}} </small>
+                      @endif
+                      </div>
+                      
+                      <div class="mb-3">
+                      @!component('components/field', {field: 'password_confirmation'})
+                      @if(flashMessages.has('errors.password'))
+                      <small> {{flashMessages.get("errors.password")}} </small>
+                      @endif
+                  </div>
                      <div>
                         <div>
                            <button class="btn btn-primary" type="submit" value="Signup"> Signup </button>

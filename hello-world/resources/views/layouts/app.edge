@@ -15,6 +15,26 @@
       <nav class="navbar navbar-light" style="background-color: #dddddd">
          <div class="container">
             <ul class="nav nav-pills">
+                    <a href="#">
+                      <button class="btn">
+                        {{ i18n.locale }}
+                      </button>
+                    </a>
+
+                      @each(locale in getSupportedLocales())
+                        @if(locale !== i18n.locale)
+                          <form
+                            method="post"
+                            action="{{ route('language.update', [locale]) }}">
+                            {{ csrfField() }}
+                            <button class="btn btn-primary" type="submit">
+                              {{ locale }}
+                            </button>
+                          </form>
+                        @end
+                      @end
+            </ul>
+            <ul class="nav nav-pills">
             <a href="{{route('NewsController.index')}}">ShitterGram</a>
             </ul>
             <ul class="nav nav-pills">
@@ -22,7 +42,7 @@
                   @if(auth.isAuthenticated == false)
                   <a href="{{route('AuthController.login')}}" class="btn btn-primary"> Login </a>
                   @else
-                  <a href="{{route('NewsController.make_news')}}" class="btn btn-primary"> Post Something </a>
+                  <a href="{{route('NewsController.create')}}" class="btn btn-primary"> Post Something </a>
                   @endif
             </ul>
             <ul class="nav nav-pills">

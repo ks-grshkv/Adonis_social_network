@@ -2,24 +2,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
+import CreateUserValidator from 'App/Validators/CreateUserValidator'
+import LoginUserValidator from 'App/Validators/LoginUserValidator'
 
 export default class AuthController {
     public async signup({request, response}: HttpContextContract){
-        const req = await request.validate({schema:schema.create({
-            name: schema.string(),
-            email: schema.string({},[
-                rules.email()
-            ]),
-            password: schema.string({}, [
-                rules.confirmed()
-            ])
-        }),
-        messages: {
-            'name.required': 'Name required11',
-            'email.required': 'Email required11',
-            'password.required': 'Password required11',
-        }
-    })
+        const req = await request.validate(CreateUserValidator)
         const user = new User()
         user.name = req.name
         user.email = req.email
@@ -31,18 +19,7 @@ export default class AuthController {
 
 
     public async login({ request, auth, response }: HttpContextContract){
-        const req = await request.validate({
-            schema: schema.create({
-                email: schema.string({},[
-                    rules.email()
-                ]),
-                password: schema.string()
-            }),
-            messages: {
-                'email.required': 'Email required11',
-                'password.required': 'Password required11',
-            }
-    })
+        const req = await request.validate(LoginUserValidator)
         // const user = await User.findByOrFail('email', req.email)
         const email = req.email
         const password = req.password

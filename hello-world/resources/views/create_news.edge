@@ -11,24 +11,22 @@
    <main>
       <div>
          <section>
-            <form action = "{{route('NewsController.make_news')}}" method="post">
+            <form action = "{{route('NewsController.create')}}" method="post">
                {{ csrfField() }}
-               <div>
-                  <label for="title">
-                  </label>
-                  <input type="text" name="title" id="title"/>
-                  @if(flashMessages.has('errors.title'))
-                  <small> {{flashMessages.get("errors.title")}} </small>
-                  @endif
+              
+               <div class="mb-3">
+                @!component('components/field', {field: 'title'})
                </div>
-               <div>
+
+               <div class="mb-3">
                   <label for="body">
                   </label>
-                  <input type="text" name="body" id="body"/>
+                  <textarea name="body" placeholder="your post here" cols="30" rows="10" id="body"></textarea>
                   @if(flashMessages.has('errors.body'))
                   <small> {{flashMessages.get("errors.body")}} </small>
                   @endif
                </div>
+
                <div>
                   <button class="btn btn-primary" type="submit" value="Post"> Post </button>
                </div>

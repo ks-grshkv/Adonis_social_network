@@ -6,7 +6,7 @@
    {{--  
    <h1 class="title"> Hey, what's up, <a href="/1">{{auth.user.name}}</a>?  </h1>
    --}}
-   <h1 class="title"> Hey, what's up, <a href="/{{auth.user.id}}">{{auth.user.name}}</a>?  </h1>
+   <h1 class="title"> {{ t('messages.homepage.title', { locale: i18n.locale }) }} <a href="/{{auth.user.id}}">{{auth.user.name}}</a>?  </h1>
    <p class="subtitle">
       Share your news with us!
    </p>

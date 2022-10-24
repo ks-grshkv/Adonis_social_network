@@ -18,13 +18,16 @@
 |
 */
 
+
+import I18n from '@ioc:Adonis/Addons/I18n'
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.any('/', 'NewsController.index'
-)
+Route.any('/', 'NewsController.index')
+//Route.on('/').render('welcome')
 
 Route.on('/post').render('create_news')
-Route.post('/post', 'NewsController.make_news')
+Route.post('/post', 'NewsController.create')
+Route.resource('profile', 'ProfileController')
 
 Route.on('/signup').render('auth/signup')
 Route.on('/login').render('auth/login')
@@ -33,5 +36,13 @@ Route.post('/signup', 'AuthController.signup')
 Route.post('/login', 'AuthController.login')
 Route.post('/logout', 'AuthController.logout')
 
-// Route.on('/:author_id').render('profile')
-Route.get('/:author_id', 'NewsController.profile')
+Route.post('language/:locale', async ({ session, response, params }) => {
+    if (I18n.supportedLocales().includes(params.locale)) {
+      session.put('locale', params.locale)
+    }
+  
+    response.redirect().back()
+  }).as('language.update')
+
+Route.get('/:author_id', 'ProfileController.index')
+

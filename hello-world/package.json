@@ -59,11 +59,13 @@
   "dependencies": {
     "@adonisjs/auth": "^8.2.2",
     "@adonisjs/core": "^5.8.7",
+    "@adonisjs/i18n": "^1.5.6",
     "@adonisjs/lucid": "^18.2.0",
     "@adonisjs/repl": "^3.1.11",
     "@adonisjs/session": "^6.4.0",
     "@adonisjs/shield": "^7.1.0",
     "@adonisjs/view": "^6.2.0",
+    "alpinejs": "^3.10.4",
     "bootstrap": "^5.2.2",
     "luxon": "^3.0.4",
     "phc-argon2": "^1.1.3",
