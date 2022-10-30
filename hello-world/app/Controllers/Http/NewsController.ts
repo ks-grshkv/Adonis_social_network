@@ -39,7 +39,7 @@ export default class NewsController {
             return view.render('errors.not-found')
 
         const comments = await news.related('comments').query().orderBy('id', 'desc')
-        return Comment.all()
+        //return Comment.all()
         return view.render('show_news', {
             news: news,
             comments: comments

@@ -25,7 +25,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.any('/', 'NewsController.index')
 
 Route.resource('news', 'NewsController')
-Route.resource('comments', 'CommentsController')
+Route.post('/news/:news_id/comment', 'CommentsController.store')
 
 Route.on('/signup').render('auth/signup')
 Route.on('/login').render('auth/login')

@@ -9,7 +9,9 @@ export default class News extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @hasMany(() => Comment)
+  @hasMany(() => Comment, {
+    foreignKey: 'news_id',
+  })
   public comments: HasMany<typeof Comment>
 
   @column()

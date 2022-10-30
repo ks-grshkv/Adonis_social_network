@@ -29,7 +29,7 @@
       <br>
 
       <section>
-         <form action = "{{route('CommentsController.store')}}" method="post">
+         <form action = "/news/{{news.id}}/comment" method="post">
             {{ csrfField() }}
 
             <div class="mb-3">

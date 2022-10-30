@@ -18,7 +18,7 @@ export default class Comment extends BaseModel {
   // public userId: number
 
   @column()
-  public newsId: number
+  public news_id: number
 
   // @belongsTo(() => News, {
   // })
