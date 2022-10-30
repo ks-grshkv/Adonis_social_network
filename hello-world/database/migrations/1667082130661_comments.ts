@@ -18,13 +18,16 @@ export default class extends BaseSchema {
       .integer('news_id')
       .unsigned()
       .references('news.id')
+      .notNullable()
       .onDelete('CASCADE') // delete comment when post is deleted
 
-      // table
-      // .integer('user_id')
-      // .unsigned()
-      // .references('user.id')
-      // .onDelete('CASCADE') // delete comment when user is deleted
+      table
+      .integer('user_id')
+      .unsigned()
+      .references('id')
+      .inTable('users')
+      .nullable()
+      .onDelete('CASCADE') // delete comment when user is deleted
     })
   }
 

@@ -1,4 +1,3 @@
-import I18n from '@ioc:Adonis/Addons/I18n'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 /**
@@ -21,8 +20,10 @@ export default class DetectUserLocale {
    * this method should return null.
    */
   protected getUserLanguage(ctx: HttpContextContract) {
-    const availableLocales = I18n.supportedLocales()
-    return ctx.session.get('locale')
+    var curr_locale = ctx.session.get('locale')
+    if (!curr_locale)
+      return curr_locale = 'en'
+    return curr_locale
   }
 
   /**

@@ -15,37 +15,24 @@
                <section>
                   <form action = "{{route('AuthController.signup')}}" method="post">
                      {{ csrfField() }}
-                      <div class="mb-3">
-                      @!component('components/field', {field: 'name'})
-                      @if(flashMessages.has('errors.password'))
-                      <small> {{flashMessages.get("errors.password")}} </small>
-                      @endif
-                      </div>
-                      
-                      <div class="mb-3">
-                      @!component('components/field', {field: 'email'})
-                      @if(flashMessages.has('errors.password'))
-                      <small> {{flashMessages.get("errors.password")}} </small>
-                      @endif
-                      </div>
 
-                      <div class="mb-3">
-                      @!component('components/field', {field: 'password'})
-                      @if(flashMessages.has('errors.password'))
-                      <small> {{flashMessages.get("errors.password")}} </small>
-                      @endif
-                      </div>
-                      
-                      <div class="mb-3">
-                      @!component('components/field', {field: 'password_confirmation'})
-                      @if(flashMessages.has('errors.password'))
-                      <small> {{flashMessages.get("errors.password")}} </small>
-                      @endif
-                  </div>
+                     <div class="mb-3">
+                        @!component('components/field', {field: 'name', placeholder: 'Your name', type: 'string'})
+                     </div>
+
+                     <div class="mb-3">
+                        @!component('components/field', {field: 'email', placeholder: 'Your email', type: 'email'})
+                     </div>
+
+                     <div class="mb-3">
+                        @!component('components/field', {field: 'password', placeholder: 'Your password', type: 'password'})
+                     </div>
+                     <div class="mb-3">
+                        @!component('components/field', {field: 'password_confirmation', placeholder: 'Confirm your password', type: 'password'})
+                     </div>
                      <div>
                         <div>
                            <button class="btn btn-primary" type="submit" value="Signup"> Signup </button>
-                           {{--  <input type="submit" value="Login"/>  --}}
                         </div>
                         <br>
                         <a href="{{route('AuthController.login')}}"> No, I want to log in </a>

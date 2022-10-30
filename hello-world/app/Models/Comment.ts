@@ -10,19 +10,21 @@ export default class Comment extends BaseModel {
   @column()
   public body: string
 
-  // @belongsTo(() => User, {
-  // })
-  // public user: BelongsTo<typeof User>
-
-  // @column()
-  // public userId: number
+  @column()
+  public user_id: number
 
   @column()
   public news_id: number
 
-  // @belongsTo(() => News, {
-  // })
-  // public news: BelongsTo<typeof News>
+  @belongsTo(() => News, {
+    foreignKey: 'news_id',
+  })
+  public news: BelongsTo<typeof News>
+
+  @belongsTo(() => User, {
+    foreignKey: 'user_id',
+  })
+  public user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

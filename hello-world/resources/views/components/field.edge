@@ -1,6 +1,6 @@
     <label for="{{field}}">
     </label>
-    <input type="{{type}}"  value="{{ flashMessages.get(field, '') }}" placeholder="{{field}}" name="{{field}}" id="{{field}}" />
+    <input type="{{type}}"  value="{{ flashMessages.get(field, '') }}" placeholder="{{placeholder}}" name="{{field}}" id="{{field}}" />
     @if(flashMessages.has('errors.' + field))
     <small> {{flashMessages.get("errors." + field)}} </small>
     @endif

@@ -2,14 +2,17 @@
 
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import News from 'App/Models/News'
-import Comment from 'App/Models/Comment'
 import CreatePostValidator from 'App/Validators/CreatePostValidator'
 
 
 
 export default class NewsController {
     public async index({ view }: HttpContextContract){
-        const news = await News.all()        
+        const news = await News
+        .query()
+        .orderBy('id', 'desc')
+        .preload('user')
+               
         return view.render('index', {
             news: news,
           })
@@ -21,27 +24,33 @@ export default class NewsController {
 
     public async store({ request, response, auth }: HttpContextContract){
         const payload = await request.validate(CreatePostValidator)
-        const new_post = new News()
-        new_post.title = payload.title
-        new_post.body = payload.body
-        
-        if (auth.isAuthenticated && auth.user){
-            new_post.userId = auth.user.id
+        if (auth.user) {
+            const new_post = await News.create({
+                title: payload.title,
+                body: payload.body,
+                user_id: auth.user.id,
+            })
+            new_post.save()
+            return response.redirect('/news')
         }
-        new_post.save()
-
-        return response.redirect('/news')
+        else
+            return response.redirect('/login')
     }
 
     public async show({view, params}: HttpContextContract){
         const news = await News.findByOrFail('id', params.id)
+        const news_author = await news.related('user').query().firstOrFail()
         if (!news)
             return view.render('errors.not-found')
 
-        const comments = await news.related('comments').query().orderBy('id', 'desc')
-        //return Comment.all()
+        const comments = await news.related('comments')
+            .query()
+            .orderBy('id', 'desc')
+
+
         return view.render('show_news', {
             news: news,
+            author: news_author,
             comments: comments
         })
     }

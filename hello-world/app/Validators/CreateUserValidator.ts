@@ -55,6 +55,7 @@ export default class CreateUserValidator {
     'name.required': 'Name required!11',
     'email.required': 'Email required!11',
     'password.required': 'Password required!11',
+    'password.confirmed': 'Make sure to type the password correctly twice!!',
     'email.unique': 'User with this email already exists!!!11',
     'email.maxLength': 'Maximum length for email is 20 symbols',
     'name.maxLength': 'Maximum length for name is 20 symbols',

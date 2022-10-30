@@ -11,18 +11,17 @@
             <form action = "{{route('AuthController.login')}}" method="post">
                {{ csrfField() }}
                <div class="mb-3">
-                  @!component('components/field', {field: 'email', type: 'text'})
-                </div>
-
+                  @!component('components/field', {field: 'email', placeholder: 'Email', type: 'email'})
+               </div>
                <div class="mb-3">
-                @!component('components/field', {field: 'password', type: 'password'})
-              </div>
-              @if (flashMessages.has('errors.password') && flashMessages.has('errors.email'))
-              <div>
-                <button class="btn btn-outline-danger" type="submit" value="Login"> Login </button>
-             </div>
-              @else  
-              <div>
+                  @!component('components/field', {field: 'password', placeholder: 'Password', type: 'password'})
+               </div>
+               @if (flashMessages.has('errors.password') && flashMessages.has('errors.email'))
+               <div>
+                  <button class="btn btn-outline-danger" type="submit" value="Login"> Login </button>
+               </div>
+               @else  
+               <div>
                   <button class="btn btn-primary" type="submit" value="Login"> Login </button>
                </div>
                @endif

@@ -15,9 +15,11 @@ export default class News extends BaseModel {
   public comments: HasMany<typeof Comment>
 
   @column()
-  public userId: number
+  public user_id: number
 
-  @belongsTo(() => User, {})
+  @belongsTo(() => User, {
+    foreignKey: 'user_id',
+  })
   public user: BelongsTo<typeof User>
 
   @hasMany(() => Comment)

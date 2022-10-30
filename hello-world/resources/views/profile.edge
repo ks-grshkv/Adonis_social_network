@@ -8,15 +8,18 @@
          <br> 
          <h2>Here's {{author}}'s latest news</h2>
          <br>
-         @each(post in news)
-         <div>
-            <p>
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.body }}</p>
-            <small>{{ post.author }} - {{ post.createdAt }}</small>
-            </p>
-            <hr>
+         @each(new_post in news)
+         <div class="card col-9">
+            <a href="{{route('NewsController.show', {id: new_post.id})}}">
+               <h3 class="card-header">{{ new_post.title }}</h3>
+            </a>
+            <div class="card-body">
+               <p>{{ new_post.body }}</p>
+               <a href="{{route('ProfileController.index', {user_id: new_post.user_id})}}">{{ author }}</a> 
+               <small>- {{ new_post.createdAt.day }}/{{ new_post.createdAt.month }}</small>
+            </div>
          </div>
+         <br>
          @endeach
       </div>
    </main>

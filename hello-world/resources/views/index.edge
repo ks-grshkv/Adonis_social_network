@@ -3,7 +3,7 @@
 <div class="container">
    <br>
    @if(auth.isAuthenticated)
-   <h1 class="title">{{ t('messages.homepage.title', { locale: session.get('locale') }) }}, <a href="/{{auth.user.id}}">{{auth.user.name}}</a>?  </h1>
+   <h1 class="title">{{ t('messages.homepage.title', { locale: i18n.locale }) }}, <a href="/{{auth.user.id}}">{{auth.user.name}}</a>?  </h1>
    <p class="subtitle">
       Share your news with us!
    </p>
@@ -20,10 +20,12 @@
       <br>
       @each(new_post in news)
       <div class="card col-9">
-         <h3 class="card-header">{{ new_post.title }}</h3>
+         <a href="{{route('NewsController.show', {id: new_post.id})}}">
+            <h3 class="card-header">{{ new_post.title }}</h3>
+         </a>
          <div class="card-body">
             <p>{{ new_post.body }}</p>
-            <a href="/{{new_post.user_id}}">{{ new_post.user_id }}</a> <small>- {{ new_post.createdAt }}</small>
+            <a href="{{route('ProfileController.index', {user_id: new_post.user_id})}}">{{ new_post.user.name}}</a> <small>- posted on {{ new_post.createdAt.day }}/{{ new_post.createdAt.month }}</small>
          </div>
       </div>
       <br>

@@ -6,16 +6,15 @@ export default class CommentsController {
 
     public async store({ request, response, params, auth }: HttpContextContract){
         const payload = await request.validate(CreateCommentValidator)
-        const new_comment = new Comment()
-        new_comment.body = payload.body
-        new_comment.news_id = params.news_id
-        
-        // if (auth.isAuthenticated && auth.user){
-        //     new_comment.userId = auth.user.id
-        // }
+        const new_comment = await Comment.create({
+            user_id: auth.user?.id,
+            body: payload.body,
+            news_id: params.news_id
+        })
         await new_comment.save()
 
         return response.redirect('back')
+
     }
 
 }

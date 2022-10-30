@@ -11,11 +11,10 @@ export default class ProfileController {
         if (!user)
             return view.render('errors.not-found')
 
-        // const news  = await user.related('news').query().orderBy('id', 'desc')
-        //const news = await News.query().where('id',)
-        // const news = user.related('news')
+        const news  = await user.related('news').query().orderBy('id', 'desc')
+
         return view.render('profile', {
-            news: await News.all(),
+            news: news,
             author: user.name
           })
     }

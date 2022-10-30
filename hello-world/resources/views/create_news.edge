@@ -13,11 +13,9 @@
          <section>
             <form action = "{{route('NewsController.store')}}" method="post">
                {{ csrfField() }}
-              
                <div class="mb-3">
-                @!component('components/field', {field: 'title'})
+                  @!component('components/field', {field: 'title'})
                </div>
-
                <div class="mb-3">
                   <label for="body">
                   </label>
@@ -26,7 +24,6 @@
                   <small> {{flashMessages.get("errors.body")}} </small>
                   @endif
                </div>
-
                <div>
                   <button class="btn btn-primary" type="submit" value="Post"> Post </button>
                </div>
