@@ -1,7 +1,6 @@
 'use strict'
 
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import News from 'App/Models/News'
 import User from 'App/Models/User'
 
 export default class ProfileController {
