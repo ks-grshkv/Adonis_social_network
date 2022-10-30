@@ -10,30 +10,20 @@
          <main>
             <form action = "{{route('AuthController.login')}}" method="post">
                {{ csrfField() }}
-                <div class="mb-3">
-                  <label for="email">
-                  </label>
-                  <input type="text" value="{{ flashMessages.get('email', '') }}" placeholder="email" name="email" id="email" />
-                  @if(flashMessages.has('errors.email'))
-                  <small> {{flashMessages.get("errors.email")}} </small>
-                  @endif
-               </div>
+               <div class="mb-3">
+                  @!component('components/field', {field: 'email', type: 'text'})
+                </div>
 
                <div class="mb-3">
-                @!component('components/field', {field: 'password'})
-                @if(flashMessages.has('errors.password'))
-                  <small> {{flashMessages.get("errors.password")}} </small>
-                  @endif
+                @!component('components/field', {field: 'password', type: 'password'})
               </div>
               @if (flashMessages.has('errors.password') && flashMessages.has('errors.email'))
               <div>
                 <button class="btn btn-outline-danger" type="submit" value="Login"> Login </button>
-                {{--  <input type="submit" value="Login"/>  --}}
              </div>
               @else  
               <div>
                   <button class="btn btn-primary" type="submit" value="Login"> Login </button>
-                  {{--  <input type="submit" value="Login"/>  --}}
                </div>
                @endif
                <br> 

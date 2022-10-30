@@ -1,7 +1,7 @@
-import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class CreateUserValidator {
+export default class CreatePostValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -23,21 +23,8 @@ export default class CreateUserValidator {
    *     ])
    *    ```
    */
-
   public schema = schema.create({
-    name: schema.string({}, [
-      rules.maxLength(20),
-      rules.trim(),
-      ]),
-    email: schema.string({}, [
-      rules.email(),
-      rules.trim(),
-      rules.unique({table: 'users', column: 'email', caseInsensitive: true,}),
-      rules.maxLength(20)
-  ]), 
-    password: schema.string({}, [
-      rules.confirmed(),
-  ]), 
+    body: schema.string(),
   })
 
   /**
@@ -52,12 +39,6 @@ export default class CreateUserValidator {
    *
    */
   public messages: CustomMessages = {
-    'name.required': 'Name required!11',
-    'email.required': 'Email required!11',
-    'password.required': 'Password required!11',
-    'email.unique': 'User with this email already exists!!!11',
-    'email.maxLength': 'Maximum length for email is 20 symbols',
-    'name.maxLength': 'Maximum length for name is 20 symbols',
-    'email.trim': 'Please make sure your email doesnt contain whitespace',
+    'body.required': 'Body required11',
   }
 }

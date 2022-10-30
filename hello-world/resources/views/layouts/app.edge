@@ -8,29 +8,24 @@
          crossorigin="anonymous">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Hey, what's up?</title>
-      {{--  @entryPointStyles('app')  --}}
-      {{--  @entryPointScripts('app')  --}}
    </head>
    <header>
-      <nav class="navbar navbar-light" style="background-color: #dddddd">
+      <nav class="navbar navbar-light">
          <div class="container">
             <ul class="nav nav-pills">
                     <a href="#">
                       <button class="btn">
-                        {{ i18n.locale }}
+                        {{session.get('locale')}}
                       </button>
                     </a>
 
                       @each(locale in getSupportedLocales())
-                        @if(locale !== i18n.locale)
-                          <form
-                            method="post"
-                            action="{{ route('language.update', [locale]) }}">
-                            {{ csrfField() }}
-                            <button class="btn btn-primary" type="submit">
+                        @if(locale !== session.get('locale'))
+                          <a
+                            href="{{ route('language.update', {locale}) }}"
+                           class="btn btn-primary">
                               {{ locale }}
-                            </button>
-                          </form>
+                              </a>
                         @end
                       @end
             </ul>
@@ -47,7 +42,7 @@
             </ul>
             <ul class="nav nav-pills">
             @if(auth.isAuthenticated)
-            <form action="{{route('AuthController.logout')}}" method="post">
+            <form action="{{route('AuthController.logout')}}" method="GET">
                 {{ csrfField() }}
             <button class="btn btn-primary" type="submit"> Sign Out </button>
             </form>

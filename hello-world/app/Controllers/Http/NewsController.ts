@@ -1,10 +1,11 @@
 'use strict'
 
-import { LocalFileServer } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import News from 'App/Models/News'
+import Comment from 'App/Models/Comment'
 import CreatePostValidator from 'App/Validators/CreatePostValidator'
-import I18n from '@ioc:Adonis/Addons/I18n'
+
+
 
 export default class NewsController {
     public async index({ view }: HttpContextContract){
@@ -14,20 +15,34 @@ export default class NewsController {
           })
     }
 
-    public async create({ request, response, auth }: HttpContextContract){
-        const req = await request.validate(CreatePostValidator)
+    public async create({view}: HttpContextContract){
+        return view.render('create_news', {})
+    }
+
+    public async store({ request, response, auth }: HttpContextContract){
+        const payload = await request.validate(CreatePostValidator)
         const new_post = new News()
-        new_post.title = req.title
-        new_post.body = req.body
+        new_post.title = payload.title
+        new_post.body = payload.body
         
-        if (auth.isAuthenticated){
-            new_post.author = auth.user.name
-            new_post.author_id = auth.user.id
+        if (auth.isAuthenticated && auth.user){
+            new_post.userId = auth.user.id
         }
-        else
-            new_post.author = 'unknown kapibara'
         new_post.save()
 
-        return response.redirect('/')
+        return response.redirect('/news')
+    }
+
+    public async show({view, params}: HttpContextContract){
+        const news = await News.findByOrFail('id', params.id)
+        if (!news)
+            return view.render('errors.not-found')
+
+        const comments = await news.related('comments').query().orderBy('id', 'desc')
+        return Comment.all()
+        return view.render('show_news', {
+            news: news,
+            comments: comments
+        })
     }
 }

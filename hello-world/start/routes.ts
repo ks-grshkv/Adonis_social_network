@@ -18,31 +18,38 @@
 |
 */
 
-
+import Logger from '@ioc:Adonis/Core/Logger'
 import I18n from '@ioc:Adonis/Addons/I18n'
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.any('/', 'NewsController.index')
-//Route.on('/').render('welcome')
 
-Route.on('/post').render('create_news')
-Route.post('/post', 'NewsController.create')
-Route.resource('profile', 'ProfileController')
+Route.resource('news', 'NewsController')
+Route.resource('comments', 'CommentsController')
 
 Route.on('/signup').render('auth/signup')
 Route.on('/login').render('auth/login')
 
 Route.post('/signup', 'AuthController.signup')
 Route.post('/login', 'AuthController.login')
-Route.post('/logout', 'AuthController.logout')
+Route.get('/logout', 'AuthController.logout')
 
-Route.post('language/:locale', async ({ session, response, params }) => {
+Route.any('language/:locale', async ({ session, response, params }) => {
+  Logger.info('wwwewewe')
+  Logger.info(params.locale)
     if (I18n.supportedLocales().includes(params.locale)) {
+      Logger.info(session.get('locale'))
+      
+      session.forget('locale')
+      Logger.info(session.get('locale'))
+      //response.cookie('lang', params.locale, { path: '/' })
+      Logger.info('session put')
       session.put('locale', params.locale)
+      Logger.info(session.get('locale'))
     }
   
-    response.redirect().back()
+    response.redirect('back')
   }).as('language.update')
 
-Route.get('/:author_id', 'ProfileController.index')
+Route.get('/:user_id', 'ProfileController.index')
 

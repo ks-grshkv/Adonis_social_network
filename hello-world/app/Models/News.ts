@@ -1,22 +1,31 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import User from 'App/Models/User'
+import Comment from 'App/Models/Comment'
+
 
 export default class News extends BaseModel {
 
   @column({ isPrimary: true })
   public id: number
 
+  @hasMany(() => Comment)
+  public comments: HasMany<typeof Comment>
+
+  @column()
+  public userId: number
+
+  @belongsTo(() => User, {})
+  public user: BelongsTo<typeof User>
+
+  @hasMany(() => Comment)
+  public posts: HasMany<typeof Comment>
+
   @column()
   public title: string
 
   @column()
   public body: string
-
-  @column()
-  public author: string
-
-  @column()
-  public author_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

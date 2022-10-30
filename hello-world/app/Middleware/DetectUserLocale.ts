@@ -22,7 +22,7 @@ export default class DetectUserLocale {
    */
   protected getUserLanguage(ctx: HttpContextContract) {
     const availableLocales = I18n.supportedLocales()
-    return ctx.request.language(availableLocales) || ctx.request.input('lang')
+    return ctx.session.get('locale')
   }
 
   /**

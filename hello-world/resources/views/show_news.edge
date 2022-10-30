@@ -1,0 +1,63 @@
+@layout('layouts/app')
+@section('content')
+<div class="container">
+   <br>
+   @if(auth.isAuthenticated)
+   <h1 class="title">{{ t('messages.homepage.title', { locale: session.get('locale') }) }}, <a href="/{{auth.user.id}}">{{auth.user.name}}</a>?  </h1>
+   <p class="subtitle">
+      Share your news with us!
+   </p>
+   @else
+   <h1 class="title">  {{ t('messages.homepage.title', { locale: i18n.locale }) }}?   </h1>
+   <p class="subtitle">
+      Log in to share your news with us!
+   </p>
+   @endif
+   <main>
+   <div>
+      <br> 
+      <h2>Here's our latest news</h2>
+      <br>
+      <div class="card col-9">
+         <div class="card-body">
+            <h3>{{ news.title }}</h3>
+            <p>{{ news.body }}</p>
+            <a href="/{{news.user_id}}">{{ news.body }}</a> <small>- {{ news.createdAt }}</small>
+         </div>
+      </div>
+
+      <br>
+
+      <section>
+         <form action = "{{route('CommentsController.store')}}" method="post">
+            {{ csrfField() }}
+
+            <div class="mb-3">
+               <label for="body">
+               </label>
+               <textarea name="body" placeholder="your comment here" cols="30" rows="3" id="body"></textarea>
+               @if(flashMessages.has('errors.body'))
+               <small> {{flashMessages.get("errors.body")}} </small>
+               @endif
+            </div>
+
+            <div>
+               <button class="btn btn-primary" type="submit" value="Post"> Post </button>
+            </div>
+         </form>
+      </section>
+
+      <br>
+   
+      @each(comment in comments)
+      <div class="card col-9">
+         <div class="card-body">
+            <p>{{ comment.body }}</p>
+            <a href="/{{comment.user_id}}">{{ comment.user_id }}</a> <small>- {{ comment.createdAt }}</small>
+         </div>
+      </div>
+      <br>
+      @endeach
+   </div>
+</div>
+@endsection

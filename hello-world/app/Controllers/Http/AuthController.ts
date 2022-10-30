@@ -1,31 +1,28 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
 import CreateUserValidator from 'App/Validators/CreateUserValidator'
 import LoginUserValidator from 'App/Validators/LoginUserValidator'
 
 export default class AuthController {
     public async signup({request, response}: HttpContextContract){
-        const req = await request.validate(CreateUserValidator)
+        const payload = await request.validate(CreateUserValidator)
         const user = new User()
-        user.name = req.name
-        user.email = req.email
-        user.password = req.password
+        user.name = payload.name
+        user.email = payload.email
+        user.password = payload.password
         user.save()
 
-        return response.redirect('/')
+        return response.redirect('/news')
     }
 
 
     public async login({ request, auth, response }: HttpContextContract){
-        const req = await request.validate(LoginUserValidator)
-        // const user = await User.findByOrFail('email', req.email)
-        const email = req.email
-        const password = req.password
+        const payload = await request.validate(LoginUserValidator)
+        const email = payload.email
+        const password = payload.password
         await auth.attempt(email, password)
 
-        return response.redirect('/')
+        return response.redirect('/news')
     }
 
 
