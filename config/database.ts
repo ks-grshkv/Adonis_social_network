@@ -7,6 +7,10 @@
 
 import Env from '@ioc:Adonis/Core/Env'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+import Logger from '@ioc:Adonis/Core/Logger'
+
+
+Logger.info('A info message')
 
 const databaseConfig: DatabaseConfig = {
   /*
@@ -41,7 +45,11 @@ const databaseConfig: DatabaseConfig = {
         user: Env.get('PG_USER'),
         password: Env.get('PG_PASSWORD', ''),
         database: Env.get('PG_DB_NAME'),
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
+      
       migrations: {
         naturalSort: true,
       },
