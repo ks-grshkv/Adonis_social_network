@@ -1,11 +1,13 @@
 # Adonis-test
 ### https://news-from-somwhere-far-away.herokuapp.com/
 
+
 [EN] My first Adonis project. A Twitter-like social network where you can
 share your news with your friends!
 
 [RU] Проба пера на Адонисе. Небольшая социальная сеть для обмена
 новостями и мнениями с другими пользователями.
+
 
 ### Project Description:
 
@@ -27,13 +29,17 @@ To do so they must:
 
 ### Launcing project locally:
 
-Clone the repo and cd into Adonis-test folder
-
+1. Clone the repo and cd into Adonis-test folder
 ```
-Install the required packages:
+git clone <...>
+```
+
+2. Install the required packages:
+```
 npm install
 ```
-To launch the app locally you'll need to tweak
+
+3. To launch the app locally you'll need to tweak
 some database configurations.
 Please check 
 - config/database.ts
@@ -41,12 +47,12 @@ Please check
 - env.ts 
 for further instructions.
 
+4. Run migrations:
 ```
-Run migrations:
 node ace migration:run
 ```
 
+5. Launch:
 ```
-Launch:
 node ace serve -w
 ```

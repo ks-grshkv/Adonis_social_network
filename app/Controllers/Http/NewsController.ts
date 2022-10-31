@@ -38,20 +38,18 @@ export default class NewsController {
     }
 
     public async show({view, params}: HttpContextContract){
-        const news = await News.findByOrFail('id', params.id)
-        const news_author = await news.related('user').query().firstOrFail()
-        if (!news)
+        const news = await News
+            .query()
+            .where('id',  params.id)
+            .preload('comments', (c) => { c.preload('user') });
+        if (!news[0])
             return view.render('errors.not-found')
 
-        const comments = await news.related('comments')
-            .query()
-            .orderBy('id', 'desc')
-
+        const news_author = await news[0].related('user').query().firstOrFail()
 
         return view.render('show_news', {
             news: news,
-            author: news_author,
-            comments: comments
+            news_author: news_author,
         })
     }
 }
