@@ -1,6 +1,6 @@
 'use strict'
 
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 
 export default class ProfileController {
@@ -10,10 +10,10 @@ export default class ProfileController {
         if (!user)
             return view.render('errors.not-found')
 
-        const news  = await user.related('news').query().orderBy('id', 'desc')
+        const news  = await user.related('news').query().orderBy('id', 'desc') //KAL: можно было preload
 
         return view.render('profile', {
-            news: news,
+            news: news, // KAL: на всякий случай: это можно написать короче, просто "news," вместо "news: news,"
             author: user.name
           })
     }

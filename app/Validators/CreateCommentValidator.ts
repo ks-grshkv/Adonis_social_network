@@ -24,7 +24,7 @@ export default class CreatePostValidator {
    *    ```
    */
   public schema = schema.create({
-    body: schema.string(),
+    body: schema.string(), //KAL: маловато условий
   })
 
   /**

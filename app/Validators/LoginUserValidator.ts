@@ -28,7 +28,7 @@ export default class CreateUserValidator {
     email: schema.string({},[
       rules.email(),
       rules.exists({ table: 'users', column: 'email' })
-  ]), 
+  ]),
   })
 
   /**

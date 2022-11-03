@@ -26,7 +26,7 @@ export default class extends BaseSchema {
       .unsigned()
       .references('id')
       .inTable('users')
-      .nullable()
+      .nullable() //KAL: почему здесь nullable, а новость не nullable? Как может быть коммент без автора?
       .onDelete('CASCADE') // delete comment when user is deleted
     })
   }

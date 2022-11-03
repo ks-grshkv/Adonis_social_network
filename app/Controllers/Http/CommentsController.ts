@@ -1,5 +1,5 @@
 import Comment from "App/Models/Comment"
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CreateCommentValidator from 'App/Validators/CreateCommentValidator'
 
 export default class CommentsController {
@@ -8,7 +8,7 @@ export default class CommentsController {
         if (auth.user){
             const payload = await request.validate(CreateCommentValidator)
             const new_comment = await Comment.create({
-                user_id: auth.user?.id,
+                user_id: auth.user?.id, //KAL: ошибка typescript
                 body: payload.body,
                 news_id: params.news_id
             })
