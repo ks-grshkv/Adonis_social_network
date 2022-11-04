@@ -2,18 +2,19 @@
 @section('content')
 <div class="container">
    <br>
-   <div class="card col-9">
-      <header>
-         <h1 class="card-header"> Nice to meet ya! </h1>
-      </header>
-      <div class="card-body">
-         <p class="subtitle">
-            Signup to share your news with the world.
-         </p>
+   <header>
+      <h1> Nice to meet ya! </h1>
+      <p class="subtitle">
+         Signup to share your news with the world.
+      </p>
+   </header>
+   {{--  <div class="card col-9">
+      <br>
+      <div class="card-body">  --}}
          <main>
             <div>
                <section>
-                  <form action = "{{route('AuthController.signup')}}" method="post">
+                  <form class="form-control" action = "{{route('AuthController.signup')}}" method="post">
                      {{ csrfField() }}
 
                      <div class="mb-3">
@@ -41,7 +42,7 @@
                </section>
             </div>
          </main>
-      </div>
-   </div>
+      {{--  </div>
+   </div>  --}}
 </div>
 @endsection

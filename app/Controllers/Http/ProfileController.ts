@@ -6,15 +6,14 @@ import User from 'App/Models/User'
 export default class ProfileController {
 
     public async index({ view, params }: HttpContextContract){
-        const user = await User.findBy('id', params.user_id)
+        const user = await User
+            .query()
+            .where('id', params.user_id)
+            .preload('news',(n) => n.orderBy('id','desc'))
+            .first()
+       
         if (!user)
             return view.render('errors.not-found')
-
-        const news  = await user.related('news').query().orderBy('id', 'desc')
-
-        return view.render('profile', {
-            news: news,
-            author: user.name
-          })
+        return view.render('profile', { user })
     }
 }

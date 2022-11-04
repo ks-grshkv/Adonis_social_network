@@ -18,6 +18,7 @@ export default class extends BaseSchema {
       .integer('user_id')
       .unsigned()
       .references('users.id')
+      .notNullable()
       .onDelete('CASCADE') // delete post when user is deleted
     })
   }

@@ -7,24 +7,20 @@ export default class AuthController {
     public async signup({request, response}: HttpContextContract){
         const payload = await request.validate(CreateUserValidator)
         const user = new User()
-        user.name = payload.name
-        user.email = payload.email
-        user.password = payload.password
-        user.save()
+        user.merge(payload)
+        await user.save()
 
         return response.redirect('/news')
     }
-
 
     public async login({ request, auth, response }: HttpContextContract){
         const payload = await request.validate(LoginUserValidator)
-        const email = payload.email
-        const password = payload.password
-        await auth.attempt(email, password)
-
+        await auth.attempt(payload.email, payload.password)
+        if (!auth){
+            return response.redirect('/login')
+        }
         return response.redirect('/news')
     }
-
 
     public async logout({ auth, response }: HttpContextContract){
         await auth.logout()

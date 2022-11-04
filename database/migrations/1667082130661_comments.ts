@@ -26,7 +26,7 @@ export default class extends BaseSchema {
       .unsigned()
       .references('id')
       .inTable('users')
-      .nullable()
+      .notNullable()
       .onDelete('CASCADE') // delete comment when user is deleted
     })
   }

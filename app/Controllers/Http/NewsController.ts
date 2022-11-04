@@ -13,9 +13,7 @@ export default class NewsController {
         .orderBy('id', 'desc')
         .preload('user')
                
-        return view.render('index', {
-            news: news,
-          })
+        return view.render('index', { news })
     }
 
     public async create({view}: HttpContextContract){
@@ -24,32 +22,28 @@ export default class NewsController {
 
     public async store({ request, response, auth }: HttpContextContract){
         const payload = await request.validate(CreatePostValidator)
-        if (auth.user) {
-            const new_post = await News.create({
-                title: payload.title,
-                body: payload.body,
-                user_id: auth.user.id,
-            })
-            new_post.save()
-            return response.redirect('/news')
-        }
-        else
+        if (!auth.user) {
             return response.redirect('/login')
+        }
+        const new_post = new News()
+        new_post.merge(payload)
+        new_post.user_id = auth.user.id
+        new_post.save()
+        return response.redirect('/news')
+            
     }
 
-    public async show({view, params}: HttpContextContract){
+    public async show({ view, params }: HttpContextContract){
         const news = await News
             .query()
-            .where('id',  params.id)
-            .preload('comments', (c) => { c.preload('user') });
-        if (!news[0])
+            .where('id', params.id)
+            .preload('user')
+            .preload('comments', (c) => { c.preload('user') })
+            .first()
+
+        if (!news){
             return view.render('errors.not-found')
-
-        const news_author = await news[0].related('user').query().firstOrFail()
-
-        return view.render('show_news', {
-            news: news,
-            news_author: news_author,
-        })
+        }
+        return view.render('show_news', { news })
     }
 }

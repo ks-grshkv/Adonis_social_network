@@ -1,20 +1,19 @@
 @layout('layouts/app')
 @section('content')
 <div class="container">
-   @each(new_post in news)
       <div>
          <br>
          <div class="card col-6">
             <div class="card-body">
-               <h3>{{ new_post.title }}</h3>
-               <p>{{ new_post.body }}</p>
-               <a href="{{route('ProfileController.index', {user_id: news})}}">{{ news_author.name }}</a> <small>- posted on {{ new_post.createdAt.day }}/{{ new_post.createdAt.month }}</small>
+               <h3>{{ news.title }}</h3>
+               <p>{{ news.body }}</p>
+               <a href="{{route('ProfileController.index', {user_id: news.user.id})}}">{{ news.user.name }}</a> <small>- posted on {{ news.createdAt.day }}/{{ news.createdAt.month }}</small>
             </div>
          </div>
          <br>
 
          <section>
-            <form action = "/news/{{new_post.id}}/comment" method="post">
+            <form action = "/news/{{news.id}}/comment" method="post">
                {{ csrfField() }}
                <div class="mb-3">
                   <label for="body">
@@ -31,7 +30,7 @@
          </section>
 
          <br>
-         @each(comment in new_post.comments)
+         @each(comment in news.comments)
             <div class="card col-9">
                <div class="card-body">
                   <p>{{ comment.body }}</p>
@@ -44,6 +43,5 @@
             <br>
          @endeach
       </div>
-   @endeach
 </div>
 @endsection

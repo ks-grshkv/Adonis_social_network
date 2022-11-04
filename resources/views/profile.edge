@@ -2,21 +2,21 @@
 @section('content')
 <div class="container">
    <br>
-   <h1 class="title"> {{author}}'s profile  </h1>
+   <h1 class="title"> {{ user.name }}'s profile  </h1>
    <main>
       <div>
          <br> 
-         <h2>Here's {{author}}'s latest news</h2>
+         <h2>Here's {{ user.name }}'s latest news</h2>
          <br>
-         @each(new_post in news)
+         @each(post in user.news)
          <div class="card col-9">
-            <a href="{{route('NewsController.show', {id: new_post.id})}}">
-               <h3 class="card-header">{{ new_post.title }}</h3>
+            <a href="{{route('NewsController.show', {id: post.id})}}">
+               <h3 class="card-header">{{ post.title }}</h3>
             </a>
             <div class="card-body">
-               <p>{{ new_post.body }}</p>
-               <a href="{{route('ProfileController.index', {user_id: new_post.user_id})}}">{{ author }}</a> 
-               <small>- {{ new_post.createdAt.day }}/{{ new_post.createdAt.month }}</small>
+               <p>{{ post.body }}</p>
+               <a href="{{route('ProfileController.index', {user_id: post.user_id})}}">{{ user.name }}</a> 
+               <small>- {{ post.createdAt.day }}/{{ post.createdAt.month }}</small>
             </div>
          </div>
          <br>

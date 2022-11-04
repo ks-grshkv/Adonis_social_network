@@ -32,8 +32,13 @@ export default class CreateUserValidator {
     email: schema.string({}, [
       rules.email(),
       rules.trim(),
+      rules.normalizeEmail({
+        allLowercase: true,
+        gmailRemoveDots: true,
+        gmailRemoveSubaddress: true,
+      }),
       rules.unique({table: 'users', column: 'email', caseInsensitive: true,}),
-      rules.maxLength(20)
+      rules.maxLength(20),
   ]), 
     password: schema.string({}, [
       rules.confirmed(),

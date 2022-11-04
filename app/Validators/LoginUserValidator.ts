@@ -25,10 +25,15 @@ export default class CreateUserValidator {
    */
   public schema = schema.create({
     password: schema.string(),
-    email: schema.string({},[
+    email: schema.string({}, [
       rules.email(),
-      rules.exists({ table: 'users', column: 'email' })
-  ]), 
+      rules.normalizeEmail({
+        allLowercase: true,
+        gmailRemoveDots: true,
+        gmailRemoveSubaddress: true,
+      }),
+      rules.exists({ table: 'users', column: 'email' }),
+    ]),
   })
 
   /**
@@ -45,6 +50,7 @@ export default class CreateUserValidator {
   public messages: CustomMessages = {
     'password.required': 'Password required11',
     'email.required': 'Email required11',
-    'email.exists': 'A user with this email doesnt seem to exist!!1'
+    'email.exists': 'A user with this email doesnt seem to exist!!1',
   }
 }
+ 

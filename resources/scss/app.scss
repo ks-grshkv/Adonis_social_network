@@ -1,0 +1,79 @@
+$primary: rgb(10, 10, 10);
+$light: rgb(255, 255, 255);
+$bg: rgb(234, 238, 244);
+$text: rgb(56, 33, 255);
+$text-link: rgb(84, 84, 84);
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+nav {
+    background-color: $text;
+    box-shadow:  1px 2px 4px rgba(0, 0, 0, 0.175);
+}
+
+.card-header {
+    border: 0ch;  
+    background-color: $light;
+}
+
+.btn-primary {
+    box-shadow:  1px 2px 4px rgba(0, 0, 0, 0.175);
+}
+
+h1 {
+    font-size: 7rem;
+    font-weight: 900;
+    color: $text;
+}
+
+p {
+    font-size: larger;
+    font-weight: 200;
+}
+
+h2 {
+    font-weight: 800;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+body {
+    background-color: $bg;
+}
+
+.card {
+    border-radius: 0.375rem;
+    border-width: 0ch;
+    background: $light;  
+    position: relative;
+    box-shadow:  4px 4px 4px rgba(0, 0, 0, 0.175);   
+}
+
+.form-control {
+    width: 55%;
+    padding: 2rem;
+    border: 0ch;
+    box-shadow:  4px 4px 4px rgba(0, 0, 0, 0.175);  
+}
+
+textarea {
+    width: 75%;
+  }
+
+small {
+    opacity: 33%;
+}
+
+a {
+    text-decoration: none;
+    color: $text-link;
+}
+
+a.logo {
+    text-decoration: none;
+    color: $light;
+    font-weight: 300;
+    // font-style: oblique;
+}

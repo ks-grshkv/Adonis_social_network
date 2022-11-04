@@ -2,13 +2,14 @@
 @section('content')
 <div class="container">
    <br>
-   <div class="card col-9">
-      <header>
-         <h1 class="card-header"> Hi there! </h1>
-      </header>
-      <div class="card-body">
+   <header>
+      <h1> Hi there! </h1>
+   </header>
+   {{--  <div class="card col-9">
+      <br>
+      <div class="card-body">  --}}
          <main>
-            <form action = "{{route('AuthController.login')}}" method="post">
+            <form class="form-control" action = "{{route('AuthController.login')}}" method="post">
                {{ csrfField() }}
                <div class="mb-3">
                   @!component('components/field', {field: 'email', placeholder: 'Email', type: 'email'})
@@ -30,7 +31,7 @@
             </form>
             <br>
          </main>
-      </div>
-   </div>
+      {{--  </div>
+      </div>  --}}
 </div>
 @endsection
