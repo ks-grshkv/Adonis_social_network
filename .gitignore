@@ -109,4 +109,5 @@ coverage
 .vscode
 .DS_STORE
 .env
+.idea
 # tmp
