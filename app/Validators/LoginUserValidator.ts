@@ -1,30 +1,12 @@
 import { schema, rules, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class CreateUserValidator {
-  constructor(protected ctx: HttpContextContract) {}
+export default class LoginUserValidator {
+  constructor(protected ctx: HttpContextContract) {
+  }
 
-  /*
-   * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
-   *
-   * For example:
-   * 1. The username must be of data type string. But then also, it should
-   *    not contain special characters or numbers.
-   *    ```
-   *     schema.string({}, [ rules.alpha() ])
-   *    ```
-   *
-   * 2. The email must be of data type string, formatted as a valid
-   *    email. But also, not used by any other user.
-   *    ```
-   *     schema.string({}, [
-   *       rules.email(),
-   *       rules.unique({ table: 'users', column: 'email' }),
-   *     ])
-   *    ```
-   */
   public schema = schema.create({
-    password: schema.string(),
+
     email: schema.string({}, [
       rules.email(),
       rules.normalizeEmail({
@@ -34,23 +16,17 @@ export default class CreateUserValidator {
       }),
       rules.exists({ table: 'users', column: 'email' }),
     ]),
+    password: schema.string({}, [
+      rules.password_correct(this.ctx.params.email)
+    ]),
   })
 
-  /**
-   * Custom messages for validation failures. You can make use of dot notation `(.)`
-   * for targeting nested fields and array expressions `(*)` for targeting all
-   * children of an array. For example:
-   *
-   * {
-   *   'profile.username.required': 'Username is required',
-   *   'scores.*.number': 'Define scores as valid numbers'
-   * }
-   *
-   */
+
   public messages: CustomMessages = {
-    'password.required': 'Password required11',
-    'email.required': 'Email required11',
-    'email.exists': 'A user with this email doesnt seem to exist!!1',
+    'password.required': 'Password is required',
+    'email.required': 'Email is required',
+    'email.exists': 'A user with this email does not exist {{this.ctx.params.email}}',
+    'password_correct': 'Incorrect password',
   }
 }
  

@@ -1,2 +1,2 @@
 import "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
-import '../scss/app.css'
+import '../scss/app.scss'

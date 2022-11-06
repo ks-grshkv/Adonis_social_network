@@ -2,5 +2,8 @@
     </label>
     <input type="{{type}}"  value="{{ flashMessages.get(field, '') }}" placeholder="{{placeholder}}" name="{{field}}" id="{{field}}" />
     @if(flashMessages.has('errors.' + field))
-    <small> {{flashMessages.get("errors." + field)}} </small>
+     <small> {{flashMessages.get("errors." + field)}} </small>
+    @endif
+    @if ((flashMessages.has('notification')) & (field == 'password'))
+     <small> {{flashMessages.get('notification')}} </small>
     @endif

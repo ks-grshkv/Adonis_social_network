@@ -28,7 +28,7 @@ export default class NewsController {
         const new_post = new News()
         new_post.merge(payload)
         new_post.user_id = auth.user.id
-        new_post.save()
+        await new_post.save()
         return response.redirect('/news')
             
     }

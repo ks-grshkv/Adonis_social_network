@@ -70,6 +70,8 @@ export const http: ServerConfig = {
   */
   generateRequestId: false,
 
+  useAsyncLocalStorage: true,
+
   /*
   |--------------------------------------------------------------------------
   | Trusting proxy servers

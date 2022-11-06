@@ -18,6 +18,7 @@
 |
 */
 
+
 import Logger from '@ioc:Adonis/Core/Logger'
 import I18n from '@ioc:Adonis/Addons/I18n'
 import Route from '@ioc:Adonis/Core/Route'
@@ -35,21 +36,12 @@ Route.post('/login', 'AuthController.login')
 Route.get('/logout', 'AuthController.logout')
 
 Route.any('language/:locale', async ({ session, response, params }) => {
-  Logger.info('wwwewewe')
   Logger.info(params.locale)
-    if (I18n.supportedLocales().includes(params.locale)) {
-      Logger.info(session.get('locale'))
-      
+    if (I18n.supportedLocales().includes(params.locale)) {      
       session.forget('locale')
-      Logger.info(session.get('locale'))
-      //response.cookie('lang', params.locale, { path: '/' })
-      Logger.info('session put')
       session.put('locale', params.locale)
-      Logger.info(session.get('locale'))
     }
-  
     response.redirect('back')
   }).as('language.update')
 
 Route.get('/:user_id', 'ProfileController.index')
-

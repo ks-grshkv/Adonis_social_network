@@ -22,9 +22,9 @@ const databaseConfig: DatabaseConfig = {
         database: Env.get('PG_DB_NAME', DATABASE_URL.pathname.substr(1)),
         // The ssl: {...} parameter is only for heroku deployment.
         // To launch app locally, comment this part
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        // ssl: {
+        //   rejectUnauthorized: false,
+        // },
       },
       
       migrations: {
