@@ -1,5 +1,4 @@
-# Adonis-test
-### https://news-from-somwhere-far-away.herokuapp.com/
+# Adonis-social-network
 
 
 [EN] My first Adonis project. A Twitter-like social network where you can
